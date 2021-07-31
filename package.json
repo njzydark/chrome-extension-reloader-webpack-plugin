@@ -1,0 +1,65 @@
+{
+  "name": "chrome-extension-reloader-webpack-plugin",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=12"
+  },
+  "description": "A webpack plugin to auto reloader when content scripts change",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "npm run clean && tsc -b -w",
+    "build": "npm run clean && tsc -b",
+    "clean": "tsc -b --clean",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --fix --ext .ts,.tsx",
+    "prettier": "prettier --write src"
+  },
+  "author": "njzy",
+  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix",
+    "*.{ts,tsx,html,css,less,md}": "prettier --write"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.149",
+    "@types/glob": "^7.1.4",
+    "@types/node": "^16.4.8",
+    "@types/sockjs": "^0.3.33",
+    "@types/sockjs-client": "^1.5.1",
+    "@types/webpack-dev-server": "^3.11.5",
+    "@types/webpack-env": "^1.16.2",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "chalk": "^4.1.2",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "glob": "^7.1.7",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.1",
+    "prettier": "^2.3.2",
+    "sockjs": "^0.3.21",
+    "sockjs-client": "^1.5.1",
+    "typescript": "^4.3.5",
+    "webpack": "^5.47.1"
+  },
+  "keywords": [
+    "webpack-plugin",
+    "chrome",
+    "chrome-extension"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/njzydark/chrome-extension-reloader-webpack-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/njzydark/chrome-extension-reloader-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/njzydark/chrome-extension-reloader-webpack-plugin#readme"
+}
