@@ -31,8 +31,8 @@ const devServerFilePaths = [
   `${cwd}/node_modules/webpack/hot/dev-server.js`
 ];
 
-let backgroundReloaderPath = `${cwd}/node_modules/webpack-plugin-chrome-extension-reloader/dist/backgroundReloader.js`;
-const contentScriptReloaderPath = `${cwd}/node_modules/webpack-plugin-chrome-extension-reloader/dist/contentScriptReloader.js`;
+let backgroundReloaderPath = `${cwd}/node_modules/chrome-extension-reloader-webpack-plugin/dist/backgroundReloader.js`;
+const contentScriptReloaderPath = `${cwd}/node_modules/chrome-extension-reloader-webpack-plugin/dist/contentScriptReloader.js`;
 
 export class ChromeExtensionReloaderWebpackPlugin {
   private name = 'ChromeExtensionReloader';
