@@ -15,13 +15,22 @@ interface ChromeExtensionReloaderOptions {
   host?: string;
   /** @default 9988 */
   port?: number;
+  manifestPath?: string | string[];
+  /**
+   * @default false
+   */
+  autoOpenDebugPages?: boolean;
+  /**
+   * debug pages
+   * @default ['background','options','popup']
+   */
+  debugPages?: ('popup' | 'background' | 'options')[];
   entry: {
     background: string;
     popup?: string;
     options?: string;
     contentScriptDirPath?: string;
   };
-  manifestPath?: string | string[];
 }
 
 const cwd = process.cwd();
@@ -52,6 +61,8 @@ export class ChromeExtensionReloaderWebpackPlugin {
     this.options = {
       host: 'localhost',
       port: 9980,
+      autoOpenDebugPages: false,
+      debugPages: ['background', 'options', 'popup'],
       ...options
     };
   }
@@ -122,7 +133,7 @@ export class ChromeExtensionReloaderWebpackPlugin {
 
   setupWebpackConfig(compiler: Compiler) {
     const { options: compilerOptions } = compiler;
-    const { host, port, entry } = this.options;
+    const { host, port, entry, debugPages, autoOpenDebugPages } = this.options;
 
     const isDev = compilerOptions.mode === 'development';
 
@@ -139,6 +150,9 @@ export class ChromeExtensionReloaderWebpackPlugin {
 
     devServerFilePaths[0] += `?http://${compilerOptions.devServer.host}:${compilerOptions.devServer.port}`;
     backgroundReloaderPath += `?http://${host}:${port}`;
+    if (autoOpenDebugPages && debugPages && debugPages?.length > 0) {
+      backgroundReloaderPath += `&${debugPages?.join(',')}`;
+    }
 
     const backgroundEntry = this.getNormalEntry('background', entry.background, {
       addBackgroundReloaderScripts: isDev,

@@ -4,7 +4,25 @@ import SockJS from 'sockjs-client';
 
 import { IReloadMessage } from './index';
 
-const host = __resourceQuery.replace('?', '');
+const queryData = __resourceQuery.replace('?', '').split('&');
+
+// eslint-disable-next-line prefer-destructuring
+const host = queryData[0];
+const debugPages = queryData.length > 1 ? queryData[1].split(',') : [];
+
+const extensionId = chrome.runtime.id;
+
+const openDebugPages = () => {
+  if (debugPages.length > 0 && extensionId) {
+    debugPages.forEach(page => {
+      chrome.tabs.create({ url: `chrome-extension://${extensionId}/${page}.html`, active: false });
+    });
+  }
+};
+
+chrome.runtime.onInstalled.addListener(() => {
+  openDebugPages();
+});
 
 const sockjsClient = new SockJS(`${host}/chromeExtensionReloader`);
 
