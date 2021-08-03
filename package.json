@@ -1,6 +1,6 @@
 {
   "name": "chrome-extension-reloader-webpack-plugin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "engines": {
     "node": ">=12"
   },
